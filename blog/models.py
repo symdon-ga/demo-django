@@ -2,7 +2,7 @@
 from django.db import models
 
 # Create your models here.
-class Artile(models.Model):
+class Article(models.Model):
     subject = models.CharField(max_length=0xFF)
     body = models.TextField()
 
