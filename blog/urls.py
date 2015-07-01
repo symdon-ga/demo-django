@@ -6,4 +6,5 @@ from . import views
 
 urlpatterns = [
     url(r'^ping/', views.ping),
+    url(r'^articles/', views.article_list),
 ]
