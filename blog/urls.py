@@ -7,4 +7,5 @@ from . import views
 urlpatterns = [
     url(r'^ping/', views.ping),
     url(r'^articles/', views.article_list),
+    url(r'^articles/show/(?P<pk>[0-9]+)/?$', views.article_show),
 ]
