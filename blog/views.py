@@ -39,6 +39,29 @@ def article_show(request, pk):
     })
 
 
+def article_edit(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user
+            article.publised_at = timezone.now()
+            article.save()
+            return redirect('blog.views.article_show', pk=article.pk)
+    else:
+        form = ArticleForm(instance=article)
+    return render(request, 'article_edit.html', {
+        'form': form,
+    })
+
+# def article_show(request, pk):
+#     article = get_object_or_404(Article, pk=pk)
+#     return render(request, 'article_show.html', {
+#         'article': article,
+#     })
+
+
 def article_list(request):
     articles = Article \
         .objects \

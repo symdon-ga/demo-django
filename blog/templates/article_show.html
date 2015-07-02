@@ -8,5 +8,8 @@
   {% endif %}
   <h1>{{ article.subject }}</h1>
   <p>{{ article.body | linebreaks }}</p>
+  <a class="btn btn-default" href="{% url 'blog.views.article_edit' pk=article.pk %}">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </a>
 </div>
 {% endblock content %}
