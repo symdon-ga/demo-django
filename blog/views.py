@@ -6,10 +6,18 @@ from django.shortcuts import (
     get_object_or_404,
 )
 from .models import Article
+from .forms import ArticleForm
 
 # Create your views here.
 def ping(request):
     return HttpResponse('PONG')
+
+
+def article_new(request):
+    form = ArticleForm()
+    return render(request, 'article_edit.html', {
+        'form': form,
+    })
 
 
 def article_show(request, pk):
