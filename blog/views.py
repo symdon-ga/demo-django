@@ -3,10 +3,12 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.shortcuts import (
     render,
+    redirect,
     get_object_or_404,
 )
 from .models import Article
 from .forms import ArticleForm
+
 
 # Create your views here.
 def ping(request):
@@ -14,7 +16,17 @@ def ping(request):
 
 
 def article_new(request):
-    form = ArticleForm()
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user
+            article.published_at = timezone.now()
+            article.save()
+            return redirect('blog.views.article_show', pk=article.pk)
+    else:
+        form = ArticleForm()
+
     return render(request, 'article_edit.html', {
         'form': form,
     })
