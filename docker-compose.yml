@@ -1,0 +1,10 @@
+app:
+  build: .
+  env_file: variables/common.env
+  volumes_from:
+    - volume-app
+
+volume-app:
+  image: busybox:latest
+  volumes:
+    - /var/lib/sximada/djangoexample/src/app:/srv/sximada/djangoexample/src

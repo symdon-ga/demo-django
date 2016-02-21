@@ -1,0 +1,8 @@
+*.pyc
+docker-compose.yml
+docker-volume.yml
+Dockerfile
+env.sh
+volumes/*
+env/*
+variables/*
