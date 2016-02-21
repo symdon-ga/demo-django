@@ -63,3 +63,4 @@ node_modules/
 # db
 *.sqlite3
 databag/*
+celerybeat.pid

@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from celery.schedules import crontab
+from kombu import (
+    Queue,
+    Exchange,
+    )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -78,7 +83,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.environ['DATABASE_FILE'],
     }
 }
 
@@ -102,3 +107,52 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# for celery
+CELERY_TIMEZONE = TIME_ZONE
+BROKER_URL = os.environ['BROKER_URL']
+CELERY_RESULT_BACKEND = os.environ['CELERY_RESULT_BACKEND']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_ALWAYS_EAGER = False
+CELERY_SEND_EVENTS = True
+CELERY_SEND_TASK_SENT_EVENT = True
+CELERY_ENABLE_UTC = False
+CELERY_ACKS_LATE = True
+CELERYD_PREFETCH_MULTIPLIER = 1
+BROKER_TRANSPORT_OPTIONS = {'fanout_patterns': True, 'visibility_timeout': 10 * 60}
+CELERY_TASK_RESULT_EXPIRES = 18000
+CELERYD_HIJACK_ROOT_LOGGER = False
+CELERYD_LOG_FORMAT = "%(asctime)s\t%(levelname)s\t%(processName)s\t%(message)s"
+CELERYD_TASK_LOG_FORMAT = "%(asctime)s\t%(levelname)s\t%(processName)s\t%(task_name)s\t%(task_id)s\t%(message)s"  # noqa
+CELERY_DISABLE_RATE_LIMITS = True
+
+# for celery beat
+CELERYBEAT_SCHEDULE = {
+    'debug_task': {
+        'task': 'app.celery.debug_task',
+        'schedule': crontab(minute='*/2'),
+        'args': (),
+    },
+}
+
+# for celery routing
+CELERY_QUEUES = [
+    Queue('default', Exchange('default', type='direct'), routing_key='default'),
+    Queue('debug', Exchange('debug', type='direct'), routing_key='debug'),
+]
+CELERY_DEFAULT_QUEUE = 'default'
+CELERY_DEFAULT_EXCHANGE = 'default'
+CELERY_DEFAULT_ROUTING_KEY = 'default'
+CELERY_ROUTERS = [{
+    'app.celery.debug_task': {
+        'queue': 'debug',
+        'routing_key': 'debug',
+    },
+}]
+
+
+# for celery once
+ONCE_REDIS_URL = os.environ['ONCE_REDIS_URL']
+ONCE_DEFAULT_TIMEOUT = 10

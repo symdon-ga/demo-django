@@ -33,9 +33,12 @@ VOLUME ["$PROJECT_ROOT/src"]
 VOLUME ["$PROJECT_ROOT/settings"]
 VOLUME ["$PROJECT_ROOT/etc"]
 
-ADD start.sh $PROJECT_ROOT/var/start.sh
+ADD start-django.sh $PROJECT_ROOT/env/bin/
+RUN chmod 755 $PROJECT_ROOT/env/bin/start-django.sh
 EXPOSE 8000
 ADD manage.py $PROJECT_ROOT/src
 ADD app/ $PROJECT_ROOT/src/app
 ADD blog/ $PROJECT_ROOT/src/blog
-CMD /bin/bash $PROJECT_ROOT/var/start.sh
+
+WORKDIR $PROJECT_ROOT/src
+CMD $PROJECT_ROOT/env/bin/start-django.sh
