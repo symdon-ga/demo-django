@@ -10,11 +10,6 @@ from .models import Article
 from .forms import ArticleForm
 
 
-# Create your views here.
-def ping(request):
-    return HttpResponse('PONG')
-
-
 def article_new(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
