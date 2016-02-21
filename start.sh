@@ -18,7 +18,7 @@ cd $WORKDIR
 
 if [ ! -e $INITIALIZED_FILE ];then
     $PYTHON manage.py migrate
-    echo "from django.contrib.auth.models import User; User.objects.create_superuser(\"$SUPERUSER_NAME\", \"$SUPERUSER_EMAIL\", \"$SUPERUSER_PASSWORD\")" | $PYTHON manage.py shell
+    echo "from django.contrib.auth.models import User; (User.objects.first() or User.objects.create_superuser(\"$SUPERUSER_NAME\", \"$SUPERUSER_EMAIL\", \"$SUPERUSER_PASSWORD\"))" | $PYTHON manage.py shell
     touch $INITIALIZED_FILE
 fi
 

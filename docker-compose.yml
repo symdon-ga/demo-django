@@ -12,8 +12,6 @@ volume-develop:
   image: busybox:latest
   volumes:
     - /var/lib/sximada/djangoexample/src:/srv/sximada/djangoexample/src
-    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/var:/srv/sximada/djangoexample/var
     - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/log:/srv/sximada/djangoexample/log
     - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/etc:/srv/sximada/djangoexample/etc
     - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/settings:/srv/sximada/djangoexample/settings
-    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/tmp:/srv/sximada/djangoexample/tmp
