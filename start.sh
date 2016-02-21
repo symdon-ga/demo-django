@@ -1,10 +1,13 @@
+set -e
+set -x
 ### variables ####
-PROJECT_ROOT=${PROJECT_ROOT:/srv/sximada/djangoexample}
-SUPERUSER_NAME=${SUPERUSER_NAME:root}
-SUPERUSER_EMAIL=${SUPERUSER_EMAIL:root@example.com}
-WORKER_NUM=${WORKER_NUM:1}
-LOG_LEVEL=${LOG_LEVEL:DEBUG}
-WSGI_FILE=${WSGI_FILE:wsgi}
+# PROJECT_ROOT=${PROJECT_ROOT:/srv/sximada/djangoexample}
+# SUPERUSER_NAME=${SUPERUSER_NAME:root}
+# SUPERUSER_EMAIL=${SUPERUSER_EMAIL:root@example.com}
+# SUPERUSER_PASSWORD=${SUPERUSER_EMAIL:toor}
+# WORKER_NUM=${WORKER_NUM:1}
+# LOG_LEVEL=${LOG_LEVEL:DEBUG}
+# WSGI_FILE=${WSGI_FILE:wsgi}
 ##################
 
 PYTHON=$PROJECT_ROOT/env/bin/python
@@ -15,8 +18,7 @@ cd $WORKDIR
 
 if [ ! -e $INITIALIZED_FILE ];then
     $PYTHON manage.py migrate
-
-    $PYTHON manage.py createsuperuser --username $SUPERUSER_NAME --email $SUPERUSER_EMAIL --no-input
+    echo "from django.contrib.auth.models import User; User.objects.create_superuser(\"$SUPERUSER_NAME\", \"$SUPERUSER_EMAIL\", \"$SUPERUSER_PASSWORD\")" | $PYTHON manage.py shell
     touch $INITIALIZED_FILE
 fi
 

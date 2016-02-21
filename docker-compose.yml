@@ -1,8 +1,12 @@
 app:
   build: .
   env_file: variables/common.env
-  volumes_from:
-    - volume-app
+  # volumes_from:
+  #   - volume-app
+  expose:
+    - 8000
+  ports:
+    - 8000:8000
 
 volume-app:
   image: busybox:latest

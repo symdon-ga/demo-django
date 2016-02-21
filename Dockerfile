@@ -27,6 +27,7 @@ RUN env/bin/python tmp/get-pip.py
 Run if [ -f tmp/requirements.txt ]; then env/bin/pip install -r tmp/requirements.txt; fi
 
 RUN env/bin/pip install ipdb
+RUN env/bin/pip install gunicorn
 
 VOLUME ["$PROJECT_ROOT/src"]
 VOLUME ["$PROJECT_ROOT/settings"]
@@ -34,5 +35,7 @@ VOLUME ["$PROJECT_ROOT/etc"]
 
 ADD start.sh $PROJECT_ROOT/var/start.sh
 EXPOSE 8000
-ADD . $PROJECT_ROOT/src
-CMD ["/bin/bash" , "$PROJECT_ROOT/var/start.sh"]
+ADD manage.py $PROJECT_ROOT/src
+ADD app/ $PROJECT_ROOT/src/app
+ADD blog/ $PROJECT_ROOT/src/blog
+CMD /bin/bash $PROJECT_ROOT/var/start.sh
