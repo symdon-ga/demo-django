@@ -4,6 +4,7 @@ app:
     - databag/common.env
     - databag/celery.env
     - databag/mysql.env
+    - databag/develop.env
   links:
     - redis:redis.internal
     - mysql:mysql.internal
@@ -22,6 +23,7 @@ celery-worker-default:
     - databag/common.env
     - databag/celery.env
     - databag/mysql.env
+    - databag/develop.env
   links:
     - redis:redis.internal
     - mysql:mysql.internal
@@ -36,6 +38,7 @@ celery-woker-debug:
     - databag/common.env
     - databag/celery.env
     - databag/mysql.env
+    - databag/develop.env
   links:
     - redis:redis.internal
     - mysql:mysql.internal
@@ -50,6 +53,7 @@ celery-beat:
     - databag/common.env
     - databag/celery.env
     - databag/mysql.env
+    - databag/develop.env
   links:
     - redis:redis.internal
     - mysql:mysql.internal
@@ -64,6 +68,7 @@ flower:
     - databag/common.env
     - databag/celery.env
     - databag/mysql.env
+    - databag/develop.env
   links:
     - redis:redis.internal
     - mysql:mysql.internal

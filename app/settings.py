@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'rewritebody.django.RwriteBodyMiddleware',
 )
 
 ROOT_URLCONF = 'app.urls'
@@ -160,3 +161,11 @@ CELERY_ROUTERS = [{
 # for celery once
 ONCE_REDIS_URL = os.environ['ONCE_REDIS_URL']
 ONCE_DEFAULT_TIMEOUT = 10
+
+# for requests
+VERIFY_SSL = False if DEBUG else True
+
+# for rewritebody
+REWRITEBODY_PAIRS = [
+    (b'</body>', os.environ.get('ENV_TAG', '').encode()),  # noqa
+]
