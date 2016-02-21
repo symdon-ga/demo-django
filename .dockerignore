@@ -7,6 +7,6 @@ Dockerfile
 env.sh
 env/*
 volumes/*
-variables/*
+databag/*
 node_modules/*
 bower_components/*
