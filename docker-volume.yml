@@ -1,0 +1,14 @@
+volumes:
+  src:
+    hostpath: ${here}
+    vboxpath: /var/lib/sximada/djangoexample/src
+
+  djangoexample:
+    hostpath: ${here}/volumes/app
+    vboxpath: /var/lib/sximada/djangoexample/app
+    directory:
+      - ${here}/volumes/app/srv/sximada/djangoexample/var
+      - ${here}/volumes/app/srv/sximada/djangoexample/log
+      - ${here}/volumes/app/srv/sximada/djangoexample/etc
+      - ${here}/volumes/app/srv/sximada/djangoexample/settings
+      - ${here}/volumes/app/srv/sximada/djangoexample/tmp

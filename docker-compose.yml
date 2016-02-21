@@ -1,8 +1,8 @@
 app:
   build: .
-  env_file: variables/common.env
-  # volumes_from:
-  #   - volume-app
+  env_file: databag/common.env
+  volumes_from:
+    - volume-app
   expose:
     - 8000
   ports:
@@ -11,4 +11,9 @@ app:
 volume-app:
   image: busybox:latest
   volumes:
-    - /var/lib/sximada/djangoexample/src/app:/srv/sximada/djangoexample/src
+    - /var/lib/sximada/djangoexample/src:/srv/sximada/djangoexample/src
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/var:/srv/sximada/djangoexample/var
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/log:/srv/sximada/djangoexample/log
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/etc:/srv/sximada/djangoexample/etc
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/settings:/srv/sximada/djangoexample/settings
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/tmp:/srv/sximada/djangoexample/tmp
