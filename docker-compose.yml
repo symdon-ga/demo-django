@@ -2,13 +2,13 @@ app:
   build: .
   env_file: databag/common.env
   volumes_from:
-    - volume-app
+    - volume-develop  # for develop
   expose:
     - 8000
   ports:
     - 8000:8000
 
-volume-app:
+volume-develop:
   image: busybox:latest
   volumes:
     - /var/lib/sximada/djangoexample/src:/srv/sximada/djangoexample/src
