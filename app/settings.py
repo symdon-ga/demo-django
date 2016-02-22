@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'django_extensions',
     'kombu.transport.django',
+    'social.apps.django_app.default',
     'celery',
     'blog',
 )
@@ -68,7 +69,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +77,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -207,3 +214,36 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+
+# for authentication
+AUTHENTICATION_BACKENDS = [
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# for social auth
+SOCIAL_AUTH_RAISE_EXCEPIONS = True
+RAISE_EXCEPTION = True
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = \
+    os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = \
+    os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
+
+SOCIAL_AUTH_UID_LENGTH = 223
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_EMAILS = \
+    os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_EMAILS', '').split(',')
+SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS = \
+    os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS', '').split(',')
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
