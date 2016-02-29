@@ -17,3 +17,6 @@ celery_once
 zope.deprecation
 python-social-auth
 rewritebody
+ipdb
+gunicorn
+djangorestframework-jwt

@@ -26,10 +26,6 @@ RUN python3.5 -m venv env --without-pip
 RUN env/bin/python tmp/get-pip.py
 Run if [ -f tmp/requirements.txt ]; then env/bin/pip install -r tmp/requirements.txt; fi
 
-RUN env/bin/pip install ipdb
-RUN env/bin/pip install gunicorn
-RUN env/bin/pip install djangorestframework-jwt
-
 VOLUME ["$PROJECT_ROOT/src"]
 VOLUME ["$PROJECT_ROOT/settings"]
 VOLUME ["$PROJECT_ROOT/etc"]
