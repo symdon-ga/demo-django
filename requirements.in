@@ -1,4 +1,4 @@
 django
 djangorestframework
 djangorestframework-jwt
-whitenoise
+drf-nested-routers
