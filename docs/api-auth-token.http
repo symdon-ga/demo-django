@@ -3,8 +3,8 @@ POST http://127.0.0.1:9090/auth/token/
 Content-Type: application/json
 
 {
-  "username": "YOURNAME",
-  "password": "YOURPASSWORD"
+  "username": "sximada",
+  "password": "adminadmin"
 }
 
 # {

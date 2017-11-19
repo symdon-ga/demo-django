@@ -1,6 +1,5 @@
 # -*- restclient -*-
 
-
 # 取得
 GET http://127.0.0.1:9090/api/counter/
 Content-Type: application/json
@@ -27,11 +26,6 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c
 }
 
 # 削除
-PATCH http://127.0.0.1:9090/api/counter/1/
+DELETE http://127.0.0.1:9090/api/counter/1/
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InN4aW1hZGEiLCJleHAiOjE1MTEwNDg1OTIsImVtYWlsIjoic3hpbWFkYUBnbWFpbC5jb20ifQ.Ln1aWJRWDZg3Rqyaj5CI2xJkxg8sGMFAD3_zp7TgX00
-
-{
-  "id": 1,
-  "count": 1
-}
