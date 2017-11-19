@@ -1,7 +1,7 @@
 import counter from './index'
 
 
-describe('reduceers', () => {
+describe('reducers', () => {
     describe('counter', () => {
         it('shoud provide the initial state', () => {
             expect(counter(undefined, {})).toBe(0)

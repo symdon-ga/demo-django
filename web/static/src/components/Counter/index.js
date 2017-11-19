@@ -1,36 +1,26 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import template from './template.pug';
+import * as actions from '../../actions'
 
+import Counter from './component.js'
 
-class Counter extends Component {
-    constructor(props) {
-        super(props)
-        this.incrementAsync = this.incrementAsync.bind(this)
-        this.incrementIfOdd = this.incrementIfOdd.bind(this)
-    }
+const mapStateToProps = state => {
 
-    incrementIfOdd() {
-        if (this.props.value % 2 !== 0) {
-            this.props.onIncrement()
-        }
-    }
-
-    incrementAsync() {
-        setTimeout(this.props.onIncrement, 1000)
-    }
-
-    render() {
-        const { value, onIncrement, onDecrement } = this.props
-        return template.call(this, { value, onIncrement, onDecrement });
+    return {
+        value: state.counter.value,
     }
 }
 
-Counter.propTypes = {
-    value: PropTypes.number.isRequired,
-    onIncrement: PropTypes.func.isRequired,
-    onDecrement: PropTypes.func.isRequired,
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(actions, dispatch),
+    }
 }
 
-export default Counter
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Counter)
