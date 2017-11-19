@@ -5,13 +5,7 @@ import * as actions from '../../actions'
 
 import Counter from './component.js'
 
-const mapStateToProps = state => {
-
-    return {
-        value: state.counter.value,
-    }
-}
-
+const mapStateToProps = state => ({ value: state.counter.value })
 
 const mapDispatchToProps = dispatch => {
     return {
