@@ -2,3 +2,4 @@ django
 djangorestframework
 djangorestframework-jwt
 drf-nested-routers
+django-rest-swagger
