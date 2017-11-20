@@ -2,11 +2,11 @@
 
 ## Requirements
 
-- Python3.6 or lator
+- Python3.6+
 
 ### Optional requirements
 
-- Go1.8.3 or later
+- Go1.8.3+
 
 ## Setup
 
