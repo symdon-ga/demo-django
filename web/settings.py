@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'example.counter',
     'web.api',
     'web.develop',
+    'rest_framework_swagger',
 ]
 
 

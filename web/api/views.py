@@ -15,6 +15,13 @@ from .serializers import (
 
 
 class UserViewSet(ModelViewSet):
+    """
+    retrieve:
+        カテゴリの詳細を取得
+
+    list:
+        全カテゴリーの取得
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -47,3 +54,9 @@ class CounterViewSet(ModelViewSet):
             instance._prefetched_objects_cache = {}
 
         return serializer
+
+    def list(self, request, *args, **kwargs):
+        """
+        Return a list of objects.
+
+        """
