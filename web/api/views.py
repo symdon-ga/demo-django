@@ -15,30 +15,62 @@ from .serializers import (
 
 
 class UserViewSet(ModelViewSet):
-    """
+    """User API
+
     retrieve:
-        カテゴリの詳細を取得
+        Get a user.
 
     list:
-        全カテゴリーの取得
+        Get all user list.
+
+    update:
+        Update a user.
+
+    partial_update:
+        Update a user (partial).
+
+    destroy:
+        Remove a user.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class CounterViewSet(ModelViewSet):
+    """Counter API
+
+    retrieve:
+        Get a counter.
+
+    list:
+        Get counter list.
+
+    update:
+        Update a counter.
+
+    partial_update:
+        Update a counter (partial).
+
+    destroy:
+        Remove counter.
+    """
+
     queryset = Counter.objects.all()
     serializer_class = CounterSerializer
 
     @detail_route(methods=['GET'])
     @transaction.atomic
     def increment(self, *args, **kwargs):
+        """Increment a counter.
+        """
         serializer = self._perform_action(CounterAction.increment, *args, **kwargs)
         return Response(serializer.data)
 
     @detail_route(methods=['GET'])
     @transaction.atomic
     def decrement(self, *args, **kwargs):
+        """Decrement a counter.
+        """
         serializer = self._perform_action(CounterAction.decrement, *args, **kwargs)
         return Response(serializer.data)
 
@@ -54,9 +86,3 @@ class CounterViewSet(ModelViewSet):
             instance._prefetched_objects_cache = {}
 
         return serializer
-
-    def list(self, request, *args, **kwargs):
-        """
-        Return a list of objects.
-
-        """
