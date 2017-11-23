@@ -1,6 +1,6 @@
 import { INCREMENT, DECREMENT } from '../constants/ActionTypes'
 
-// import axios from 'axios'
+import axios from 'axios'
 
 
 const initialState = {
@@ -9,15 +9,14 @@ const initialState = {
 
 
 export default (state = initialState, action) => {
-    // axios.get('/api/counter/2/increment/').then((response) => {
-    //     console.log(response)
-    // })
 
     switch(action.type) {
     case INCREMENT:
-        return {
-            value: state.value + 1,
-        }
+        return axios.get('/api/counter/2/increment/').then((response) => {
+            return {
+                value: response.data.value + 1,
+            }
+        })
     case DECREMENT:
         return {
             value: state.value - 1,
