@@ -1,0 +1,7 @@
+# common
+django>=3.0a1
+djangorestframework
+python-dotenv
+
+# server
+uvicorn
