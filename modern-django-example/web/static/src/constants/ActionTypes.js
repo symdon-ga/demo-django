@@ -1,0 +1,7 @@
+export const INCREMENT = 'INCREMENT'
+export const DECREMENT = 'DECREMENT'
+export const LOGIN = 'LOGIN'
+
+export const REQUEST_START = 'REQUEST_START'
+export const REQUEST_SUCCESS = 'REQUEST_SUCCESS'
+export const REQUEST_ERROR = 'REQUEST_ERROR'

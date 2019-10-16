@@ -1,0 +1,6 @@
+django
+django-cors-headers
+django-rest-swagger
+djangorestframework
+djangorestframework-jwt
+drf-nested-routers

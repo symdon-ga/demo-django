@@ -1,0 +1,3 @@
+GET http://127.0.0.1:8000/api/organization/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InN4aW1hZGEiLCJleHAiOjE1MTA5NDM2OTksImVtYWlsIjoic3hpbWFkYUBnbWFpbC5jb20ifQ.ZNrcf7gL7sRTyljj81k4SGqfVUcGVG84T9_PWhTLiTU

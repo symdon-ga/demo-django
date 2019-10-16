@@ -1,0 +1,13 @@
+# -*- restclient -*-
+
+
+# 取得
+GET http://127.0.0.1:9090/api/user/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InN4aW1hZGEiLCJleHAiOjE1MTEwMzY0NTMsImVtYWlsIjoic3hpbWFkYUBnbWFpbC5jb20ifQ.0i6woRS8YOGY4mhpiC1zrRxi96QL9DrWhTM7-yrE8QY
+
+
+# 修正
+PUT http://127.0.0.1:9090/api/user/1/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InN4aW1hZGEiLCJleHAiOjE1MTEwMzY0NTMsImVtYWlsIjoic3hpbWFkYUBnbWFpbC5jb20ifQ.0i6woRS8YOGY4mhpiC1zrRxi96QL9DrWhTM7-yrE8QY

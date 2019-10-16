@@ -1,0 +1,3 @@
+pip-tools
+uwsgi
+whitenoise>=4.0b4

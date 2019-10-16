@@ -1,0 +1,20 @@
+# -*- restclient -*-
+POST http://127.0.0.1:9090/auth/token/
+Content-Type: application/json
+
+{
+  "username": "sximada",
+  "password": "adminadmin"
+}
+
+# {
+#   "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InN4aW1hZGEiLCJleHAiOjE1MTEwMzkxMTIsImVtYWlsIjoic3hpbWFkYUBnbWFpbC5jb20ifQ.xll_z2pgbRC8Gib9K3ir5cuJRPQdHY1_gHiuxkGfy_k"
+# }
+# // POST http://127.0.0.1:9090/auth/token/
+# // HTTP/1.1 200 OK
+# // Content-Type: application/json
+# // Vary: Accept
+# // Allow: POST, OPTIONS
+# // X-Frame-Options: SAMEORIGIN
+# // Content-Length: 199
+# // Request duration: 0.105185s

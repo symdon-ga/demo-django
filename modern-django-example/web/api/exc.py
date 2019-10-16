@@ -1,0 +1,4 @@
+
+
+class CounterOperationError(Exception):
+    pass
