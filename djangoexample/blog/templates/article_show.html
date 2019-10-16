@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="post">
+  {% if article.published_at %}
+  <div class="date">
+    {{ post.published_at}}
+  </div>
+  {% endif %}
+  <h1>{{ article.subject }}</h1>
+  <p>{{ article.body | linebreaks }}</p>
+  <a class="btn btn-default" href="{% url 'blog.views.article_edit' pk=article.pk %}">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </a>
+</div>
+{% endblock content %}

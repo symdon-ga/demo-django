@@ -1,0 +1,12 @@
+*.pyc
+docker-compose.yml
+docker-volume.yml
+webpack.config.js
+packages.json
+Dockerfile
+env.sh
+env/*
+volumes/*
+databag/*
+node_modules/*
+bower_components/*

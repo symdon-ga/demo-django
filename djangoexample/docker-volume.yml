@@ -1,0 +1,23 @@
+volumes:
+  src:
+    hostpath: ${here}
+    vboxpath: /var/lib/sximada/djangoexample/src
+
+  djangoexample:
+    hostpath: ${here}/volumes/app
+    vboxpath: /var/lib/sximada/djangoexample/app
+    directory:
+      - ${here}/volumes/app/srv/sximada/djangoexample/var
+      - ${here}/volumes/app/srv/sximada/djangoexample/log
+      - ${here}/volumes/app/srv/sximada/djangoexample/etc
+      - ${here}/volumes/app/srv/sximada/djangoexample/settings
+      - ${here}/volumes/app/srv/sximada/djangoexample/tmp
+
+  mysql:
+    hostpath: ${here}/volumes/mysql
+    vboxpath: /var/lib/sximada/djangoexample/mysql
+    uid: 999
+    gid: 999
+    directory:
+      - ${here}/volumes/app/srv/sximada/mysql/var/lib/mysql
+      - ${here}/volumes/app/srv/sximada/mysql/var/log/mysql

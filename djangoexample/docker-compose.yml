@@ -1,0 +1,109 @@
+app:
+  build: .
+  env_file:
+    - databag/common.env
+    - databag/celery.env
+    - databag/mysql.env
+    - databag/develop.env
+  links:
+    - redis:redis.internal
+    - mysql:mysql.internal
+
+  volumes_from:
+    - volume-develop  # for develop
+  expose:
+    - 8000
+  ports:
+    - 8000:8000
+
+celery-worker-default:
+  build: .
+  command: /srv/sximada/djangoexample/env/bin/celery -A app.celery_app worker -Q default -c 1 -Ofair -E
+  env_file:
+    - databag/common.env
+    - databag/celery.env
+    - databag/mysql.env
+    - databag/develop.env
+  links:
+    - redis:redis.internal
+    - mysql:mysql.internal
+
+  volumes_from:
+    - volume-develop  # for develop
+
+celery-woker-debug:
+  build: .
+  command: /srv/sximada/djangoexample/env/bin/celery -A app.celery_app worker -Q debug -c 1 -Ofair -E
+  env_file:
+    - databag/common.env
+    - databag/celery.env
+    - databag/mysql.env
+    - databag/develop.env
+  links:
+    - redis:redis.internal
+    - mysql:mysql.internal
+
+  volumes_from:
+    - volume-develop  # for develop
+
+celery-beat:
+  build: .
+  command: /srv/sximada/djangoexample/env/bin/celery -A app.celery_app beat -s /srv/sximada/djangoexample/var/celerybeat-schedule.db
+  env_file:
+    - databag/common.env
+    - databag/celery.env
+    - databag/mysql.env
+    - databag/develop.env
+  links:
+    - redis:redis.internal
+    - mysql:mysql.internal
+
+  volumes_from:
+    - volume-develop  # for develop
+
+flower:
+  build: .
+  command: /srv/sximada/djangoexample/env/bin/celery -A app.celery_app flower -Ofair -E
+  env_file:
+    - databag/common.env
+    - databag/celery.env
+    - databag/mysql.env
+    - databag/develop.env
+  links:
+    - redis:redis.internal
+    - mysql:mysql.internal
+
+  expose:
+    - 5555
+  ports:
+    - 5555:5555
+
+  volumes_from:
+    - volume-develop  # for develop
+
+redis:
+  image: redis:latest
+
+mysql:
+  image: mysql:latest
+  env_file:
+    - databag/mysql.env
+  volumes_from:
+    - volume-mysql
+
+volume-mysql:
+  image: busybox:latest
+  volumes:
+    - /var/lib/sximada/djangoexample/mysql/var/lib/mysql:/var/lib/mysql
+    - /var/lib/sximada/djangoexample/mysql/var/log/mysql:/var/log/mysql
+    - /var/lib/sximada/djangoexample/mysql/etc/mysql/conf.d:/etc/mysql/conf.d
+    - /var/lib/sximada/djangoexample/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+volume-develop:
+  image: busybox:latest
+  volumes:
+    - /var/lib/sximada/djangoexample/src:/srv/sximada/djangoexample/src
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/var:/srv/sximada/djangoexample/var
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/log:/srv/sximada/djangoexample/log
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/etc:/srv/sximada/djangoexample/etc
+    - /var/lib/sximada/djangoexample/app/srv/sximada/djangoexample/settings:/srv/sximada/djangoexample/settings

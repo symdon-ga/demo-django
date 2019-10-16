@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% for article in articles %}
+<div class="post">
+  <div class="date">
+    {{ article.published_at }}
+  </div>
+  <h1>
+    <a href="{% url 'blog.views.article_show' pk=article.pk %}">{{ article.subject }}</a>
+  </h1>
+  <p>
+    {{ article.body | linebreaks }}
+  </p>
+</div>
+{% endfor %}
+{% endblock content %}
