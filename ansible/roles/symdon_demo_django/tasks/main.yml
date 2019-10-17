@@ -1,4 +1,4 @@
----
+# ---
 - file:
     path: "{{ root_dir }}"
     state: directory
@@ -26,7 +26,6 @@
 - template:
     src: _env.env
     dest: "{{ root_dir }}/.env"
-  changed_when: true
   notify: 
     - symdon_django_restart
 
@@ -47,7 +46,6 @@
 - git:
     repo: "{{ git_repo }}"
     dest: "{{ src_dir }}"
-  changed_when: true
   notify: 
     - symdon_django_deps
     - symdon_django_migrate
@@ -56,8 +54,7 @@
 
 - command: "python3.7 -m venv {{ venv_dir }}"
   args:
-    creates: "{{ venv_dir }}"
-  changed_when: true
+    creates: "{{ venv_dir }}/bin/python"
   notify: 
     - symdon_django_deps
     - symdon_django_restart
@@ -67,7 +64,7 @@
     dest: "{{ nginx_dir }}/{{ domain }}"
   notify: 
     - symdon_django_nginx_reload
-  changed_when: true
+
 
 - file:
     src: "{{ nginx_dir }}/{{ domain }}"
@@ -80,7 +77,6 @@
     state: link
   notify: 
     - symdon_django_nginx_reload
-  changed_when: true
     
 - name: link static dir
   file:
