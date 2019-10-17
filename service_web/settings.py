@@ -26,7 +26,7 @@ BASE_DIR = settings_path.parents[1]
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'l7k6cz$xhbs0+u*&%dl50a7%2tlmel4h2_8bu(tacz@w7yb^ac'
+SECRET_KEY = os.environ["SYMDON_DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
