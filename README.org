@@ -1,1 +1,1 @@
-#+TITLE: demo-django
+#+TITLE: symdon_django
