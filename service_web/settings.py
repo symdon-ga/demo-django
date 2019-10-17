@@ -129,6 +129,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(
-    os.environ.get("DEMO_DJANAGO_STATIC_ROOT") or (BASE_DIR / "dist"),
+    os.environ.get("DEMO_DJANGO_STATIC_ROOT") or (BASE_DIR / "dist"),
     "static",
 )
