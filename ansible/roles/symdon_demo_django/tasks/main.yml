@@ -1,30 +1,89 @@
 ---
-# tasks file for symdon_demo_django
-- include: deploy.yaml
-  vars:
-    cmd: "/opt/demo-django/venv/bin/uvicorn service_web.asgi:application --port 8911"
-    cwd: "/opt/demo-django/current"
-    desc: "Demo django"
-    venv_dir: "/opt/demo-django/venv"
-    pip_requirements: "/opt/demo-django/current/requirements.txt"
-    env_dir: "/opt/demo-django"
-    env_file: ".env"
-    git_key: ~/.ssh/id_rsa.sximada
-    git_repo: git@github.com:symdon-ga/demo-django.git
-    log_dir: "/opt/demo-django/log"
-    log_file: "app.log"
-    root_dir: "/opt/demo-django"
-    service_name: "demo-django"
-    domain: "demo-django.symdon.ga"
-    src_dir: "/opt/demo-django/current"
-    systemd_dir: "/opt/demo-django/systemd"
-    cert_dir: "/etc/letsencrypt/live/symdon.ga"
-    upstream_name: "demo-django"
-    upstream_host: "127.0.0.1"
-    upstream_port: "8911"
-    static_root: "/opt/demo-django/www"
-    www_root: "/var/www/demo-django.symdon.ga"
-  notify:
-    - "service demo-django restart"
-    - "service nginx reload"
+- file:
+    path: "{{ root_dir }}"
+    state: directory
+
+- file:
+    path: "{{ systemd_dir }}"
+    state: directory
+
+- file:
+    path: "{{ log_dir }}"
+    state: directory
+
+- file:
+    path: "{{ env_dir }}"
+    state: directory
+
+- file:
+    path: "{{ static_root }}"
+    state: directory
+
+- file:
+    path: "{{ nginx_dir }}"
+    state: directory
+
+- template:
+    src: _env.env
+    dest: "{{ root_dir }}/.env"
+  changed_when: true
+  notify: 
+    - symdon_django_restart
+
+- template:
+    src: systemd/_.service
+    dest: "{{ systemd_dir }}/{{ service_name }}.service"
+
+- file:
+    src: "{{ systemd_dir }}/{{ service_name }}.service"
+    dest: "/etc/systemd/system/{{ service_name }}.service"
+    state: link
+
+- file:
+    src: "{{ log_dir }}"
+    dest: "/var/log/{{ service_name }}"
+    state: link
     
+- git:
+    repo: "{{ git_repo }}"
+    dest: "{{ src_dir }}"
+  changed_when: true
+  notify: 
+    - symdon_django_deps
+    - symdon_django_migrate
+    - symdon_django_collectstatic
+    - symdon_django_restart
+
+- command: "python3.7 -m venv {{ venv_dir }}"
+  args:
+    creates: "{{ venv_dir }}"
+  notify: 
+    - symdon_django_deps
+    - symdon_django_restart
+
+- template:
+    src: sites-available/_upstream.conf
+    dest: "{{ nginx_dir }}/{{ domain }}"
+  notify: 
+    - symdon_django_nginx_reload
+  changed_when: true
+
+- file:
+    src: "{{ nginx_dir }}/{{ domain }}"
+    dest: "/etc/nginx/sites-available/{{ domain }}"
+    state: link
+
+- file:
+    src: "/etc/nginx/sites-available/{{ domain }}"
+    dest: "/etc/nginx/sites-enabled/{{ domain }}"
+    state: link
+  notify: 
+    - symdon_django_nginx_reload
+  changed_when: true
+    
+- name: link static dir
+  file:
+    src: "{{ static_root }}"
+    dest: "{{ www_root }}"
+    state: link
+

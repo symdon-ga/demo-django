@@ -1,13 +1,34 @@
 ---
-# handlers file for symdon_demo_django
-- listen: service nginx reload
+- listen: symdon_django_deps
+  pip:
+    requirements: "{{ pip_requirements }}"
+    executable: "{{ venv_dir }}/bin/pip"
+
+- listen: symdon_django_migrate
+  command: "{{ venv_dir }}/bin/python manage.py migrate --noinput"
+  args:
+    chdir: "{{ cwd }}"
+  environment:
+    DOTENV: "{{ env_dir }}/{{ env_file }}"
+
+- listen: symdon_django_collectstatic
+  command: "{{ venv_dir }}/bin/python manage.py collectstatic --noinput"
+  args:
+    chdir: "{{ cwd }}"
+  environment:
+    DOTENV: "{{ env_dir }}/{{ env_file }}"
+
+- listen: symdon_django_restart
+  systemd:
+    name: "{{ service_name }}.service"
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- listen: symdon_django_nginx_reload
   systemd:
     name: nginx.service
     state: reloaded
     daemon_reload: yes
 
-- listen: service demo-django restart
-  systemd:
-    name: demo-django.service
-    state: restarted
-    daemon_reload: yes
+
