@@ -1,0 +1,14 @@
+[Unit]
+Description={{ desc }}
+
+[Service]
+Type = simple
+WorkingDirectory = {{ cwd }}
+ExecStart = {{ cmd }}
+Restart = always
+StandardOutput = append:{{ log_dir }}/{{ log_file }}
+StandardError = append:{{ log_dir }}/{{ log_file }}
+EnvironmentFile = {{ env_dir }}/{{ env_file }}
+
+[Install]
+WantedBy=multi-user.target

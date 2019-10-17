@@ -1,0 +1,30 @@
+---
+# tasks file for symdon_demo_django
+- include: deploy.yaml
+  vars:
+    cmd: "/opt/demo-django/venv/bin/uvicorn service_web.asgi:application --port 8911"
+    cwd: "/opt/demo-django/current"
+    desc: "Demo django"
+    venv_dir: "/opt/demo-django/venv"
+    pip_requirements: "/opt/demo-django/current/requirements.txt"
+    env_dir: "/opt/demo-django"
+    env_file: ".env"
+    git_key: ~/.ssh/id_rsa.sximada
+    git_repo: git@github.com:symdon-ga/demo-django.git
+    log_dir: "/opt/demo-django/log"
+    log_file: "app.log"
+    root_dir: "/opt/demo-django"
+    service_name: "demo-django"
+    domain: "demo-django.symdon.ga"
+    src_dir: "/opt/demo-django/current"
+    systemd_dir: "/opt/demo-django/systemd"
+    cert_dir: "/etc/letsencrypt/live/symdon.ga"
+    upstream_name: "demo-django"
+    upstream_host: "127.0.0.1"
+    upstream_port: "8911"
+    static_root: "/opt/demo-django/www"
+    www_root: "/var/www/demo-django.symdon.ga"
+  notify:
+    - "service demo-django restart"
+    - "service nginx reload"
+    

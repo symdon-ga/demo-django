@@ -1,0 +1,13 @@
+---
+# handlers file for symdon_demo_django
+- listen: service nginx reload
+  systemd:
+    name: nginx.service
+    state: reloaded
+    daemon_reload: yes
+
+- listen: service demo-django restart
+  systemd:
+    name: demo-django.service
+    state: restarted
+    daemon_reload: yes
