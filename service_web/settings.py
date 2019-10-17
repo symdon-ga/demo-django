@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import os
 import pathlib
+import dotenv
+
+DOTENV = os.environ.get('DOTENV')
+if DOTENV:
+    dotenv.load_dotenv(DOTENV)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 settings_path = pathlib.Path(__file__).resolve()
