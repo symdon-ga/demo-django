@@ -1,2 +1,25 @@
 ---
 # vars file for symdon_demo_django
+cert_dir: "/etc/letsencrypt/live/symdon.ga"
+cmd: "/opt/symdon-django/venv/bin/uvicorn service_web.asgi:application --port 8911"
+cwd: "/opt/symdon-django/current"
+desc: "Symdon Django"
+domain: "django.symdon.ga"
+env_dir: "/opt/symdon-django"
+env_file: ".env"
+git_key: ~/.ssh/id_rsa.sximada
+git_repo: git@github.com:symdon-ga/symdon-django.git
+log_dir: "/opt/symdon-django/log"
+log_file: "app.log"
+nginx_dir: "/opt/symdon-django/nginx"
+pip_requirements: "/opt/symdon-django/current/requirements.txt"
+root_dir: "/opt/symdon-django"
+service_name: "symdon-django"
+src_dir: "/opt/symdon-django/current"
+static_root: "/opt/symdon-django/www"
+systemd_dir: "/opt/symdon-django/systemd"
+upstream_host: "127.0.0.1"
+upstream_name: "symdon-django"
+upstream_port: "8911"
+venv_dir: "/opt/symdon-django/venv"
+www_root: "/var/www/django.symdon.ga"
