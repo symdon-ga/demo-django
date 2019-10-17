@@ -57,6 +57,7 @@
 - command: "python3.7 -m venv {{ venv_dir }}"
   args:
     creates: "{{ venv_dir }}"
+  changed_when: true
   notify: 
     - symdon_django_deps
     - symdon_django_restart
