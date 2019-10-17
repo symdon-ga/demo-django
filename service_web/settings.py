@@ -26,7 +26,11 @@ SECRET_KEY = 'l7k6cz$xhbs0+u*&%dl50a7%2tlmel4h2_8bu(tacz@w7yb^ac'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "demo-django.symdon.ga",
+    "localhost",
+]
 
 
 # Application definition
