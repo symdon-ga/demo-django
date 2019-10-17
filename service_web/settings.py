@@ -33,8 +33,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "demo-django.symdon.ga",
     "localhost",
+    os.environ.get("SYMDON_DJANGO_HOST"),
 ]
 
 
@@ -129,6 +129,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(
-    os.environ.get("DEMO_DJANGO_STATIC_ROOT") or (BASE_DIR / "dist"),
+    os.environ.get("SYMDON_DJANGO_STATIC_ROOT") or (BASE_DIR / "dist"),
     "static",
 )
