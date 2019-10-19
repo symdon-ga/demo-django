@@ -29,7 +29,7 @@ BASE_DIR = settings_path.parents[1]
 SECRET_KEY = os.environ["SYMDON_DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("SYMDON_DJANGO_MODE", "DEBUG") == "DEBUG"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
