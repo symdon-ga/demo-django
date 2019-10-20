@@ -1,4 +1,4 @@
-#+TITLE: symdon_django
+#+TITLE: symdon-django
 
 [[https://user-images.githubusercontent.com/50688746/67144762-7bb56a80-f2b5-11e9-916e-298a9c2238b3.png]]
 
