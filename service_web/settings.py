@@ -139,7 +139,8 @@ STATIC_ROOT = os.path.join(
 
 SYMDON_AUTH_CLIENT_ID = "symdon-django"
 SYMDON_AUTH_REALM = "demo"
-SYMDON_AUTH_REDIRECT_URI = "https://localhost:8000/callback/"
+SYMDON_AUTH_REDIRECT_URI = os.environ.get("SYMDON_DJANGO_SYMDON_AUTH_REDIRECT_URI",
+                                          "https://localhost:8000/callback/")
 SYMDON_AUTH_AUTH_URL = "https://auth.symdon.ga/auth/realms/demo/protocol/openid-connect/auth"
 
 

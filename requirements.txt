@@ -2,6 +2,7 @@
 django>=3.0a1
 djangorestframework
 python-dotenv
+requests
 
 # server
 uvicorn
