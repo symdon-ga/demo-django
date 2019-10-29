@@ -20,6 +20,7 @@ if DOTENV:
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 settings_path = pathlib.Path(__file__).resolve()
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = settings_path.parents[0]
 BASE_DIR = settings_path.parents[1]
 
 # Quick-start development settings - unsuitable for production
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.symdon_auth',
 ]
 
 MIDDLEWARE = [
@@ -64,7 +66,9 @@ ROOT_URLCONF = 'service_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            (HERE / "templates"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,3 +136,11 @@ STATIC_ROOT = os.path.join(
     os.environ.get("SYMDON_DJANGO_STATIC_ROOT") or (BASE_DIR / "dist"),
     "static",
 )
+
+SYMDON_AUTH_CLIENT_ID = "symdon-django"
+SYMDON_AUTH_REALM = "demo"
+SYMDON_AUTH_REDIRECT_URI = "https://localhost:8000/callback/"
+SYMDON_AUTH_AUTH_URL = "https://auth.symdon.ga/auth/realms/demo/protocol/openid-connect/auth"
+
+
+

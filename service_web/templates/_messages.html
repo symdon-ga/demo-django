@@ -1,0 +1,44 @@
+{% if messages %}
+<style>
+  .messages {
+      position: absolute;
+      width: 60%;
+      left: 0;
+      right: 0;
+      margin: auto;
+  }
+
+  .messages input {
+      display: none;
+  }
+
+  .messages input:checked+p {
+      display: none;
+  }
+
+  .messages p label {
+      right: 2rem;
+      position: absolute;
+  }
+
+  .messages .entry {
+      background: #fff;
+      border-radius: 10px;
+      border: 0.1px solid rgba(0, 0, 0, .2);
+      box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, .2);
+      margin: 1rem;
+      padding: 1rem;
+  }
+</style>
+
+<div class="messages">
+  {% for message in messages %}
+  <input type="checkbox" id="message-{{ message.counter }}"
+	 {% if message.tags %}class="{{ message.tags }}"{% endif %}></input>
+  <p class="entry">
+    {{ message }}
+    <label for="message-{{ message.counter }}" class="label">x</label>
+  </p>
+  {% endfor %}
+</div>
+{% endif %}
