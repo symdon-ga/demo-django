@@ -1,6 +1,6 @@
 #+TITLE: symdon-django
 
-[[https://user-images.githubusercontent.com/50688746/67144762-7bb56a80-f2b5-11e9-916e-298a9c2238b3.png]]
+[[https://user-images.githubusercontent.com/50688746/67758737-90e28400-fa81-11e9-81be-fbe360bf416e.png]]
 
 |-------------+-------------------------------------|
 | Environment | URL                                 |
