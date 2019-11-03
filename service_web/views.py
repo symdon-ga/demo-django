@@ -97,6 +97,8 @@ class LoginCallbackView(View):
 
 
 class TestView(View):
-    def get(self, request, *args, **kwargs):
-        messages.add_message(request, messages.INFO, "インフォメーション")
-        return render(request, "index.html")
+    def post(self, request, *args, **kwargs):
+        import json
+        from django.http import HttpResponse
+        return HttpResponse(json.dumps({"text": "OK"}), content_type='application/json')
+        
