@@ -6,3 +6,9 @@ requests
 
 # server
 uvicorn
+
+# extras
+django-simple-history
+
+# use mysql
+mysqlclient
