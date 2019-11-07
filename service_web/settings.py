@@ -42,12 +42,16 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # default
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # customize
+    'simple_history',
+    # original
     'apps.symdon_auth',
 ]
 
@@ -59,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'service_web.urls'
@@ -87,13 +92,27 @@ WSGI_APPLICATION = 'service_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+database_type = os.environ.get("SYMDON_DJANGO_DATABASE_TYPE", "sqlite3")
+if database_type == "sqlite3":
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ.get("SYMDON_DJANGO_DATABASE_ENGINE", f"django.db.backends.{database_type}"),
+            'NAME': os.environ.get("SYMDON_DJANGO_DATABASE_NAME", os.path.join(BASE_DIR, 'db.sqlite3')),
+        }
     }
-}
-
+elif database_type == "mysql":
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ.get("SYMDON_DJANGO_DATABASE_ENGINE", f"django.db.backends.{database_type}"),
+            'HOST': os.environ.get("SYMDON_DJANGO_DATABASE_HOST", "127.0.0.1"),
+            'NAME': os.environ.get("SYMDON_DJANGO_DATABASE_NAME", "symdon_django"),
+            'PASSWORD': os.environ.get("SYMDON_DJANGO_DATABASE_PASSWORD", ""),
+            'PORT': os.environ.get("SYMDON_DJANGO_DATABASE_PORT", "3306"),
+            'USER': os.environ.get("SYMDON_DJANGO_DATABASE_USER", "root"),
+        }
+    }
+else:
+    assert False, f"Unsupport database type: {database_type}"
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators

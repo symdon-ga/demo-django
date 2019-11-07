@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from simple_history.admin import SimpleHistoryAdmin
+
+from . import models
+
+admin.site.register(models.UserLink, SimpleHistoryAdmin)
